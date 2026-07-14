@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: reviewbot
+    env: docker
+    repo: https://github.com/your-org/reviewbot
+    plan: starter
+    healthCheckPath: /stats
+    envVars:
+      - key: GITHUB_APP_ID
+        sync: false
+      - key: GITHUB_PRIVATE_KEY
+        sync: false
+      - key: GITHUB_WEBHOOK_SECRET
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: MODEL
+        value: llama-3.3-70b-versatile
+      - key: PORT
+        value: "3000"

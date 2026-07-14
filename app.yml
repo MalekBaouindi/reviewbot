@@ -1,0 +1,16 @@
+name: ReviewBot
+description: AI-powered code reviews powered by Groq (llama-3.3-70b-versatile)
+url: https://github.com/<your-org>/reviewbot
+
+public: true
+default_events:
+  - pull_request
+  - pull_request_review
+
+default_permissions:
+  contents: read
+  pull_requests: write
+  metadata: read
+
+# Render keeps the webhook URL stable; replace after deploy.
+# Example: https://reviewbot.onrender.com/api/github/webhooks
