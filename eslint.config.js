@@ -5,6 +5,7 @@ module.exports = tseslint.config(
   {
     files: ["src/**/*.ts"],
     languageOptions: { parser: tseslint.parser },
+    plugins: { "@typescript-eslint": tseslint.plugin },
     rules: {
       "no-console": "warn",
       "no-unused-vars": "off",
