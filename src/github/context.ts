@@ -30,9 +30,21 @@ export function extractContextWindows(
   content: string,
   changedLines: Set<number>
 ): string | null {
+  if (changedLines.size === 0) return null;
+
   const allLines = content.split("\n");
+
+  if (allLines.length === 0 || (allLines.length === 1 && allLines[0] === "")) {
+    return null;
+  }
+
   if (allLines.length > MAX_CONTEXT_FILE_LINES) {
-    const changed = Array.from(changedLines).sort((a, b) => a - b);
+    const changed = Array.from(changedLines)
+      .filter((l) => l >= 1 && l <= allLines.length)
+      .sort((a, b) => a - b);
+
+    if (changed.length === 0) return null;
+
     const windows: string[] = [];
     let regionStart = -1;
     let regionEnd = -1;
@@ -63,7 +75,10 @@ export function extractContextWindows(
       : null;
   }
 
-  return allLines.join("\n");
+  const hasValidChange = Array.from(changedLines).some(
+    (l) => l >= 1 && l <= allLines.length
+  );
+  return hasValidChange ? allLines.join("\n") : null;
 }
 
 export interface FileContext {
